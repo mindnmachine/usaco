@@ -9,120 +9,71 @@ using namespace std;
 
 // Maximum number of cows
 const int maxCows = 3e5;
-
-bool ifPrevPossible(const std::vector<int> &cHealthStates)
-{
-    int consInfCows = 0;
-    bool prevPossible = true;
-    for (int j = 0; j < cHealthStates.size(); j++)
-    {
-        if (cHealthStates[j] == 1)
-        {
-            consInfCows++;
-        }
-        else
-        {
-            if (consInfCows == 0)
-            {
-                continue;
-            }
-            if (consInfCows == 1 || consInfCows == 2)
-            {
-                if (j < 3 && consInfCows == 2)
-                {
-                    consInfCows = 0;
-                    continue;
-                }
-                else
-                {
-                    prevPossible = false;
-                    break;
-                }
-            }
-            else
-            {
-                consInfCows = 0;
-            }
-        }
-    }
-    if (consInfCows == 1)
-        prevPossible = false;
-
-    return prevPossible;
-}
-
-int countInfected(const vector<int> &pHealthStates)
-{
-    int count = 0;
-    for (int i = 0; i < pHealthStates.size(); i++)
-    {
-        if (pHealthStates[i] == 1)
-            count++;
-    }
-    return count;
-}
-
-vector<int> predictHealth(vector<int> &pHealthStates)
-{
-    vector<int> pPrevHealth;
-    pHealthStates.push_back(0);
-    pHealthStates.insert(pHealthStates.begin(),0);
-
-    // pPrevHealth.push_back(pHealthStates[0]);
-    for (int i = 1; i < pHealthStates.size() - 1; i++)
-    {
-
-        if ((pHealthStates[i] == 1 && pHealthStates[i - 1] == 0 && pHealthStates[i + 1] == 1) ||
-            (pHealthStates[i] == 1 && pHealthStates[i - 1] == 1 && pHealthStates[i + 1] == 0))
-        {
-            pPrevHealth.push_back(0);
-        }
-        else
-        {
-            pPrevHealth.push_back(pHealthStates[i]);
-        }
-    }
-    // pPrevHealth.push_back(pHealthStates[pHealthStates.size() - 1]);
-    
-    return pPrevHealth;
-}
-
+int maxDays = 1e9;
+  
 int main()
 {
-    int numberOfCows;
-
     /*Input from File*/
     std::ifstream read("tact.in");
     std::ofstream write("tact.out");
-    // cin >> numberOfCows;
-    read >> numberOfCows;
-    std::vector<int> cHealthStates(numberOfCows);
-    std::vector<int> pHealthStates(numberOfCows);
-    int result = 0;
+    
+    int nCows;
+    read >> nCows;
+    //cin >> nCows;
 
-    for (int idx = 0; idx < numberOfCows; idx++)
+    std::vector<long long> cows(nCows);
+    std::vector<int> intervals;
+
+    int count = 0;
+    int intervalLen = 0;
+
+    for (int idx = 0; idx < nCows; idx++)
     {
         char healthState;
-        // cin >> healthState;
+        //cin >> healthState;
         read >> healthState;
-        cHealthStates[idx] = healthState - '0';
-        pHealthStates[idx] = healthState - '0';
-    }
-    if (countInfected(cHealthStates) == cHealthStates.size())
-        result = 1;
-    else
-    {
-        while (ifPrevPossible(pHealthStates))
-        {
-            pHealthStates = predictHealth(pHealthStates);
-            
-        }
-        result = countInfected(pHealthStates);
+        cows[idx] = healthState - '0';
     }
     
+    for (int idx = 0; idx <= nCows; idx++)
+    {
+        if (cows[idx] == 1 && idx <= nCows){
+            count++;
+        }else if(cows[idx] == 0&& count > 0 ){
+            intervals.push_back(count);
+            count = 0;
+        }
+    }
+   if( count > 0)
+        intervals.push_back(count);
+    
+    intervalLen = intervals.size();
 
-    // cout << result << std::endl;
-    write << result;
+    if (intervalLen == 0) {
+        //cout << 0;
+        write << 0;
+        return 0;
+    }
+
+    if(cows[0] == 0)
+        maxDays = min(maxDays, intervals[0]);
+    else if(cows[nCows - 1] == 0)
+        maxDays = min(maxDays, intervals[intervalLen - 1]);
+
+    write << "maxDays " << maxDays <<endl;
+    for(int j = 0; j< intervalLen; j++){
+        maxDays = min(maxDays, (intervals[j] % 2) ? (intervals[j]-1) :intervals[j]);   
+      write << "maxDays "<<maxDays << "j "<<j<<endl;
+    }
+  
+    count = 0;
+    for(int i = 0; i < intervalLen; i++){
+       write << "interval size " <<(intervals[i]) << endl;
+        write << "maxDays "<< maxDays <<" c "<<(intervals[i]+ 2 * maxDays -2)/ (2* maxDays - 1) <<endl;
+        count += (intervals[i]+ 2* maxDays -2)/ (2* maxDays - 1);
+    }
+      //cout << count;
+     write << count;
 
     return 0;
 }
