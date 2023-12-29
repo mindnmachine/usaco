@@ -1,6 +1,3 @@
-/***
- *
-*/
 
 /********   All Required Header Files ********/
 #include <iostream>
@@ -41,11 +38,11 @@ int main() {
     int N; 
     string cows; 
     
-    // cin >> N;
-    // cin >> cows;
+    cin >> N;
+    cin >> cows;
 
-    read >> N;
-    read >> cows;
+    //read >> N;
+    //read >> cows;
     
     vector<pair<int,int> > intervals;
 
@@ -60,8 +57,8 @@ int main() {
     }
 
     if (intervals.empty()) {
-        // cout << 0;
-        write << 0;
+        cout << 0;
+        //write << 0;
         return 0;
     }
 
@@ -73,7 +70,7 @@ int main() {
         } else {
             D = min(D,(x+1)/2);
         }
-          write << "D  "<< D <<endl;
+         // write << "D  "<< D <<endl;
     }
   
     int ans = 0;
@@ -81,10 +78,10 @@ int main() {
        
         int x = p.second - p.first + 1; //interval size
         int c = (x + 2*D-2)/(2*D-1);
-        write << "interval size "<< x <<endl;
-        write << "c "<< c<<endl;
+       // write << "interval size "<< x <<endl;
+       // write << "c "<< c<<endl;
         ans += c;
     }
-    write << ans;
+   // write << ans;
     cout << ans;
 }
