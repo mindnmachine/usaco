@@ -3,13 +3,12 @@ using namespace std;
 
 int main() {
 
-    //freopen("bacteria.in","r",stdin);
-   // freopen("bacteria.out","w",stdout);
+    freopen("bacteria.in","r",stdin);
+    freopen("bacteria.out","w",stdout);
 
     int numPatch = 0;
-    long long totalAdditions = 0;
-    long long totalRemovals = 0;
-    long long result =0;
+    long long totalapplications =0;
+    int compute = 0;
 
     cin >> numPatch;
     vector<long long> bacteria(numPatch);
@@ -18,22 +17,15 @@ int main() {
     }
     
     for (int idx = numPatch - 1; idx > 0; --idx) {
-        long long diff = bacteria[idx] - (idx > 0 ? bacteria[idx - 1] : 0);
-        if (diff < 0) {
-            totalRemovals += abs(diff);
+        if (bacteria[idx] < 0) {
+            totalapplications += abs(diff);
         } else {
-            totalAdditions += diff;
+            totalapplications += diff;
         }
     }
     result = totalAdditions + totalRemovals;
-   
-    for (int idx = 1; idx <= numPatch; ++idx) {
-        if (totalAdditions <= (long long)idx * (idx - 1) / 2 
-            && totalRemovals <= (long long)idx * (idx - 1) / 2) {
-            result = max(result, (long long)idx);
-        }
-    }
-    result +=abs(bacteria[numPatch - 1]+ bacteria[numPatch - 2]);
-    cout << result << endl;
+
+    
+    cout << applications << endl;
     return 0;
 }
