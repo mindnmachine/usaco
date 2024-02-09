@@ -14,12 +14,12 @@ int maxDays = 1e9;
 int main()
 {
     /*Input from File*/
-    std::ifstream read("tact.in");
-    std::ofstream write("tact.out");
+//    std::ifstream read("tact.in");
+//    std::ofstream write("tact.out");
     
     int nCows;
-    read >> nCows;
-    //cin >> nCows;
+//    read >> nCows;
+   cin >> nCows;
 
     std::vector<long long> cows(nCows);
     std::vector<int> intervals;
@@ -30,8 +30,8 @@ int main()
     for (int idx = 0; idx < nCows; idx++)
     {
         char healthState;
-        //cin >> healthState;
-        read >> healthState;
+        cin >> healthState;
+        //read >> healthState;
         cows[idx] = healthState - '0';
     }
     
@@ -50,8 +50,8 @@ int main()
     intervalLen = intervals.size();
 
     if (intervalLen == 0) {
-        //cout << 0;
-        write << 0;
+        cout << 0;
+        //write << 0;
         return 0;
     }
 
@@ -60,20 +60,20 @@ int main()
     else if(cows[nCows - 1] == 0)
         maxDays = min(maxDays, intervals[intervalLen - 1]);
 
-    write << "maxDays " << maxDays <<endl;
+    //write << "maxDays " << maxDays <<endl;
     for(int j = 0; j< intervalLen; j++){
         maxDays = min(maxDays, (intervals[j] % 2) ? (intervals[j]-1) :intervals[j]);   
-      write << "maxDays "<<maxDays << "j "<<j<<endl;
+      //write << "maxDays "<<maxDays << "j "<<j<<endl;
     }
   
     count = 0;
     for(int i = 0; i < intervalLen; i++){
-       write << "interval size " <<(intervals[i]) << endl;
-        write << "maxDays "<< maxDays <<" c "<<(intervals[i]+ 2 * maxDays -2)/ (2* maxDays - 1) <<endl;
+      // write << "interval size " <<(intervals[i]) << endl;
+       // write << "maxDays "<< maxDays <<" c "<<(intervals[i]+ 2 * maxDays -2)/ (2* maxDays - 1) <<endl;
         count += (intervals[i]+ 2* maxDays -2)/ (2* maxDays - 1);
     }
-      //cout << count;
-     write << count;
+      cout << count;
+     //write << count;
 
     return 0;
 }

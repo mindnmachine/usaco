@@ -31,8 +31,8 @@ using namespace std;
 
 int main() {
     /*Input from File*/
-    std::ifstream read("tact.in");
-    std::ofstream write("cp.out");
+    //std::ifstream read("tact.in");
+    //std::ofstream write("cp.out");
     
     //cin >> nCows;
     int N; 

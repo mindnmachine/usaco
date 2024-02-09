@@ -1,7 +1,9 @@
-#include <algorithm>
-#include <fstream>
-#include <string>
-#include <iostream>
+// #include <algorithm>
+// #include <fstream>
+// #include <string>
+// #include <iostream>
+#include<bits/stdc++.h>
+
 using namespace std;
 const int nHeight = 2e5;
 int ncow , nCane = 0;
@@ -12,8 +14,8 @@ int main(){
     int nCow, nCane;
     long long cow_eats = 0, candy_eaten = 0;
     
-    std::ifstream read("cane.in");
-    std::ofstream write("cane.out");
+//    std::ifstream read("cane.in");
+//    std::ofstream write("cane.out");
     cin >> nCow >> nCane;
     // read >> nCow >> nCane;
 
@@ -42,8 +44,8 @@ int main(){
             }
     }
     for(int i = 0; i <nCow ; i++)
-        // cout << hCow[i] << endl;
-        write << hCow[i] << endl;
+         cout << hCow[i] << endl;
+        //write << hCow[i] << endl;
 
     return 0;
 }
