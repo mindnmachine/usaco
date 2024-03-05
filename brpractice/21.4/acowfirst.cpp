@@ -1,10 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
-
 int bisect_right( vector<int>& c, int h) {
-    return (upper_bound(c.begin(), c.end(), h) - c.begin());
+cout << upper_bound(c.begin(), c.end(), h) - c.begin() << endl;
+ return upper_bound(c.begin(), c.end(), h) - c.begin();
 }
 
 bool obtainhindex(vector<int> &cit, int h, int l)
@@ -26,8 +25,8 @@ bool obtainhindex(vector<int> &cit, int h, int l)
 
 int main()
 {
-    // freopen("cowf.in", "r", stdin);
-    // freopen("cowf.out", "w", stdout);
+    freopen("cowf.in", "r", stdin);
+    freopen("cowf.out", "w", stdout);
 
     vector<int> citations;
     int hindex = 0,  N = 0, L = 0;;
