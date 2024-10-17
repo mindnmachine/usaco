@@ -1,46 +1,65 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+
 using namespace std;
 
-int sgn(int x) 
-{
-    if (x < 0)
-        return -1;
-    if (x > 0)
-        return 1;
-    return 0;
+vector<string> cows = {"Beatrice", "Belinda", "Bella", 
+                       "Bessie", "Betsy", "Blue", 
+                       "Buttercup", "Sue"};
+map<string, vector<string> > constraints;
+vector<string> solution;
+bool found = false;
+
+void dfs(vector<string>& path, vector<bool>& visited) {
+    if (path.size() == 8) {
+        solution = path; // Found a valid ordering
+        found = true;
+        return;
+    }
+
+    for (int i = 0; i < 8; ++i) {
+        if (!visited[i]) {
+            if (!path.empty()) {
+                // Check if the last cow in the path can be beside the current cow
+                bool canBeNext = false;
+                for (const string& neighbor : constraints[path.back()]) {
+                    if (neighbor == cows[i]) {
+                        canBeNext = true;
+                        break;
+                    }
+                }
+                // If the current cow cannot be next to the last cow in the path, skip it
+                if (!canBeNext && !constraints[path.back()].empty()) continue;
+            }
+            visited[i] = true;
+            path.push_back(cows[i]);
+            dfs(path, visited);
+            if (found) return; // Stop searching once a solution is found
+            path.pop_back();
+            visited[i] = false;
+        }
+    }
 }
+
 int main() {
-    // freopen("aircon.in","r",stdin);
-    // freopen("aircon.out","w",stdout);
+    freopen("lineup.in","r",stdin);
+    freopen("lineup.out","w",stdout);
 
     int N;
-    cin >> N
-    ;vector<int> p(N), t(N), d(N);
-    for (int i = 0; i < N; ++i)
-        cin >> p[i];
-    for (int i = 0; i < N; ++i)
-        cin >> t[i];
-    for (int i = 0; i < N; ++i)
-        d[i] = p[i] - t[i];
+    cin >> N;
+    for (int i = 0; i < N; ++i) {
+        string cow1, must, be, milked, beside, cow2;
+        cin >> cow1 >> must >> be >> milked >> beside >> cow2;
+        constraints[cow1].push_back(cow2);
+        constraints[cow2].push_back(cow1);
+    }
 
-    int first_nonzero = 0, ans = 0;
+    vector<string> path;
+    vector<bool> visited(8, false);
+    dfs(path, visited);
 
-    while (true) {
-        while (first_nonzero < N && d[first_nonzero] == 0)++first_nonzero;
-        if (first_nonzero == N)
-            break;
-        int r = first_nonzero;
+    for (const string& cow : solution) {
+        cout << cow << endl;
+    }
 
-        while (r + 1 < N && sgn(d[r + 1]) == sgn(d[first_nonzero]))
-            ++r;
-        for (int i = first_nonzero; i <= r; ++i) 
-        {
-                if (d[i] < 0)
-                    ++d[i];
-                 else
-                    --d[i];
-         }
-            ++ans;
-        }        
-                cout << ans << "\n";
+    return 0;
 }

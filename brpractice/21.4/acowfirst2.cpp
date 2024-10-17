@@ -5,7 +5,7 @@ int main()
 {
     // freopen("cow2.in", "r", stdin);
     // freopen("cow2.out", "w", stdout);
-
+    
     int K, N;
     cin >> K >> N;
     vector<string> cows(N);

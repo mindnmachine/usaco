@@ -1,46 +1,32 @@
 #include<bits/stdc++.h>
-using namespace std;
 
-int sgn(int x) 
-{
-    if (x < 0)
-        return -1;
-    if (x > 0)
-        return 1;
-    return 0;
-}
 int main() {
-    // freopen("aircon.in","r",stdin);
-    // freopen("aircon.out","w",stdout);
-
     int N;
-    cin >> N
-    ;vector<int> p(N), t(N), d(N);
-    for (int i = 0; i < N; ++i)
-        cin >> p[i];
-    for (int i = 0; i < N; ++i)
-        cin >> t[i];
-    for (int i = 0; i < N; ++i)
-        d[i] = p[i] - t[i];
+    std::cin >> N;
+    std::string mailboxes;
+    std::cin >> mailboxes;
 
-    int first_nonzero = 0, ans = 0;
-
+    int K = 1;
     while (true) {
-        while (first_nonzero < N && d[first_nonzero] == 0)++first_nonzero;
-        if (first_nonzero == N)
+        bool unique = true;
+        std::map<std::string, int> sequences;
+        for (int i = 0; i <= N - K; ++i) {
+            std::string sequence = mailboxes.substr(i, K);
+            if (sequences.find(sequence) != sequences.end()) {
+                unique = false;
+                break;
+            } else {
+                sequences[sequence] = 1;
+            }
+        }
+        if (unique) {
             break;
-        int r = first_nonzero;
+        } else {
+            K++;
+        }
+    }
 
-        while (r + 1 < N && sgn(d[r + 1]) == sgn(d[first_nonzero]))
-            ++r;
-        for (int i = first_nonzero; i <= r; ++i) 
-        {
-                if (d[i] < 0)
-                    ++d[i];
-                 else
-                    --d[i];
-         }
-            ++ans;
-        }        
-                cout << ans << "\n";
+    std::cout << K << std::endl;
+
+    return 0;
 }

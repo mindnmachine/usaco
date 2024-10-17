@@ -2,8 +2,8 @@
 using namespace std;
 
 int bisect_right( vector<int>& c, int h) {
-cout << upper_bound(c.begin(), c.end(), h) - c.begin() << endl;
- return upper_bound(c.begin(), c.end(), h) - c.begin();
+    cout << upper_bound(c.begin(), c.end(), h) - c.begin() << endl;
+    return upper_bound(c.begin(), c.end(), h) - c.begin();
 }
 
 bool obtainhindex(vector<int> &cit, int h, int l)

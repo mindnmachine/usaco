@@ -12,9 +12,9 @@ int main(){
         stack<int> s;
         priority_queue<int> pq;
     for (int i = 0; i < num; i++){
-      cin >> cmd >> op1;
+      scanf("%d %d",&cmd, &op1);
       switch(cmd){
-          case 1:
+        case 1:
              if(isS)
                 s.push(op1);
               if(isQ)
@@ -22,7 +22,7 @@ int main(){
               if(isPQ)
                 s.push(op1);
             break;
-            case 2:
+        case 2:
             if(isS){
                 if(s.empty() || s.top() != op1)
                     isS = false;

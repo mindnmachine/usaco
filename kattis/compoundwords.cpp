@@ -19,7 +19,7 @@ int main(){
             }
         }
     for (auto element : output) {
-        cout << element<<endl;
+        cout << element<< endl;
     }
 
   }

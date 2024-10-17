@@ -1,7 +1,9 @@
 #include <bits/stdc++.h>
+#include <algorithm>
+
 using namespace std;
 
-
+#define pb push_back
 #define sf second.first
 #define ss second.second
 
@@ -16,8 +18,8 @@ int maxdist = 2000000000;
 
 int main()
 {
-    //freopen("stuck.in", "r", stdin);
-    //freopen("stuck.out", "w", stdout);
+    // freopen("stuck.in", "r", stdin);
+    // freopen("stuck.out", "w", stdout);
 
     int N;
     cin >> N;
@@ -30,10 +32,10 @@ int main()
         cin >> dir >> x >> y;
 
         if (dir == 'E'){
-            ec.push_back({i, {x, y}});
+            ec.pb({i, {x, y}});
         }
         else {
-            nc.push_back({i, {x, y}});
+            nc.pb({i, {x, y}});
         }
     }
     sort(nc.begin(), nc.end(), [](PiPii a, PiPii b){ return a.sf < b.sf; });
